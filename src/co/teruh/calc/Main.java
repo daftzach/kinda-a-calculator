@@ -17,16 +17,17 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
-		Fraction f1 = new Fraction(3, 6);
+		Fraction f1 = new Fraction(3, 10);
+		f1.simplify();
 		System.out.println(f1.toString());
+		System.out.println(f1.toDecimal());
+		System.out.println(f1.toPercent());
 		
-		MixedNumber m1 = new MixedNumber(5, 7, 8);
+		MixedNumber m1 = new MixedNumber(4, 6, 8);
+		m1.simplify();
 		System.out.println(m1.toString());
-		System.out.println(m1.convertToFraction());
-		
-		MixedNumber m2 = new MixedNumber(2, 1, 3);
-		System.out.println(m2.toString());
-		System.out.println(m2.convertToFraction());
+		System.out.println(m1.toDecimal());
+		System.out.println(m1.toPercent());
 		
 		//Window ui = new Window();
 		//ui.initWindow();

@@ -4,6 +4,10 @@ public class MixedNumber extends Fraction {
 	
 	private int integer;
 	
+	public MixedNumber() {
+		this(-1, -1, -1);
+	}
+	
 	public MixedNumber(int i, int n, int d) {
 		super(n, d);
 		this.integer = i;
@@ -18,7 +22,15 @@ public class MixedNumber extends Fraction {
 	}
 	
 	public String toString() {
-		return (getInteger() + " " + getNumerator() + " / " + getDenominator());
+		return (getInteger() + " " + getNumerator() + "/" + getDenominator());
+	}
+	
+	public float toDecimal() {
+		return (float) getInteger() + ((float) getNumerator() / (float) getDenominator());
+	}
+	
+	public double toPercent() {
+		return toDecimal() * 100;
 	}
 	
 	public Fraction convertToFraction() {
