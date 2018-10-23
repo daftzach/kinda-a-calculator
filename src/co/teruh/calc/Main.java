@@ -19,21 +19,24 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 
-		Fraction f1 = new Fraction(1, 2);
+		Fraction f1 = new Fraction(4, 2);
 		System.out.println(f1.toString());
-		System.out.println(f1.convertToMixedNumber());
 		f1.simplify();
 		System.out.println(f1.toString());
+		System.out.println(f1.toDecimal());
+		System.out.println(f1.toPercent());
+		System.out.println(f1.convertToMixedNumber());
 
-		/*MixedNumber m1 = new MixedNumber(4, 6, 8);
+		MixedNumber m1 = new MixedNumber(11, 3, 18);
 		System.out.println(m1.toString());
 		m1.simplify();
 		System.out.println(m1.toString());
 		System.out.println(m1.toDecimal());
-		System.out.println(m1.toPercent());*/
+		System.out.println(m1.toPercent());
+		System.out.println(m1.convertToFraction());
 
-		// Window ui = new Window();
-		// ui.initWindow();
+		Window ui = new Window();
+		ui.initWindow();
 	}
 
 }

@@ -1,35 +1,32 @@
 package co.teruh.calc.graphics;
 
-import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.FlowLayout;
 
-/**
- * This class creates/places Java swing elements that are used on the graphical
- * end of the program.
- * 
- * @author Zach Clark
- *
- */
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
 public class Window {
 
-	private final JFrame frame; // JFrame object which will serve as the program's window
+	private JFrame frame; 
+	private JPanel panel;
 
-	/**
-	 * Default constructor for the window
-	 */
 	public Window() {
-		// Initialize JFrame reference, create new window
 		frame = new JFrame("Math Utils");
+		panel = new JPanel(new FlowLayout());
 	}
 
-	/**
-	 * Initialize and place window/panel elements
-	 */
 	public void initWindow() {
-		// Set JFrame attributes
 		frame.setVisible(true);
-		frame.setSize(600, 800);
+		frame.setSize(400, 600);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		panel.setBackground(Color.GRAY);
+		panel.setOpaque(true);
+		
+		frame.add(panel);
 	}
 }
