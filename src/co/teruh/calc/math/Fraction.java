@@ -11,7 +11,11 @@ public class Fraction {
 
 	public Fraction(int n, int d) {
 		this.numerator = n;
-		this.denominator = d;
+		if(!(d == 0)) {
+			this.denominator = d;
+		} else {
+			throw new IllegalArgumentException("Invalid denominator");
+		}
 	}
 
 	public int getNumerator() {
@@ -58,7 +62,7 @@ public class Fraction {
 		} else if (getDenominator() == 1) {
 			return Integer.toString(getNumerator());
 		} else {
-			return null;
+			throw new IllegalArgumentException("Invalid denominator");
 		}
 	}
 

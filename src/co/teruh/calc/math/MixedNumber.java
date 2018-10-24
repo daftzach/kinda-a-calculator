@@ -25,7 +25,7 @@ public class MixedNumber extends Fraction {
 		if (!(getDenominator() == 0)) {
 			return (getInteger() + " " + getNumerator() + "/" + getDenominator());
 		} else {
-			return null;
+			throw new IllegalArgumentException("Invalid denominator");
 		}
 	}
 

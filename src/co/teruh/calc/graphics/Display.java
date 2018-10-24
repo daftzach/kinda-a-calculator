@@ -20,6 +20,7 @@ public class Display extends Application {
 		//controller.init();
 		
 		displayStage.setScene(scene);
+		displayStage.setResizable(false);
 		displayStage.show();
 	}
 		
