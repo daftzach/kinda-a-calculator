@@ -52,10 +52,19 @@ public class FractionTabController implements Initializable {
 				if (!newValue && !(fieldFractionWholeNum.getText().isEmpty())) {
 					wholeNum = Integer.parseInt(fieldFractionWholeNum.getText());
 					setMixedNumberValues();
-					checkMixedNumber.setDisable(true);
+					validiate();
 				} else if (fieldFractionWholeNum.getText().isEmpty()) {
-					wholeNum = 0;
-					checkMixedNumber.setDisable(false);
+					mixedNumber.setInteger(0);
+					validiate();
+				}
+			}
+		});
+
+		fieldFractionWholeNum.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					fieldFractionWholeNum.setText(newValue.replaceAll("[^\\d]", ""));
 				}
 			}
 		});
@@ -66,8 +75,19 @@ public class FractionTabController implements Initializable {
 				if (!newValue && !(fieldFractionNumerator.getText().isEmpty())) {
 					numerator = Integer.parseInt(fieldFractionNumerator.getText());
 					setFractionValues();
+					validiate();
 				} else if (fieldFractionWholeNum.getText().isEmpty()) {
-					numerator = 0;
+					fraction.setNumerator(0);
+					validiate();
+				}
+			}
+		});
+
+		fieldFractionNumerator.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					fieldFractionNumerator.setText(newValue.replaceAll("[^\\d]", ""));
 				}
 			}
 		});
@@ -78,41 +98,56 @@ public class FractionTabController implements Initializable {
 				if (!newValue && !(fieldFractionDenominator.getText().isEmpty())) {
 					denominator = Integer.parseInt(fieldFractionDenominator.getText());
 					setFractionValues();
+					validiate();
 				} else if (fieldFractionWholeNum.getText().isEmpty()) {
-					denominator = 0;
+					fraction.setDenominator(0);
+					validiate();
 				}
 			}
 		});
-		
-		checkImproper.setOnAction((ActionEvent e) -> {
-			if(mixedNumber.isMixed()) {
-				checkImproper.setSelected(true);
-			} else {
-				checkImproper.setSelected(false);
-				areaOutput.appendText("Cannot convert non-mixed number into improper fraction.\n");
-			}
-		});
-		
-		checkMixedNumber.setOnAction((ActionEvent e) -> {
-			if(fraction.isImproper()) {
-				checkMixedNumber.setSelected(true);
-			} else {
-				checkMixedNumber.setSelected(false);
-				areaOutput.appendText("Cannot convert non-improper fraction into a mixed number.\n");
+
+		fieldFractionDenominator.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					fieldFractionDenominator.setText(newValue.replaceAll("[^\\d]", ""));
+				}
 			}
 		});
 
 		buttonConvert.setOnAction((ActionEvent e) -> {
-			if (fieldFractionWholeNum.getText().isEmpty() && !(denominator == 0)) {
+			if (!mixedNumber.isMixed()) {
 				setFractionValues();
-				validateDenominator();
+				System.out.println(fraction.toString());
 				runConversions();
 			} else {
 				setMixedNumberValues();
-				validateDenominator();
+				System.out.println(mixedNumber.toString());
 				runConversions();
 			}
 		});
+	}
+
+	public void validiate() {
+		validateImproper();
+		validateMixed();
+		validateDenominator();
+	}
+
+	public void validateImproper() {
+		if (!fraction.isImproper() && mixedNumber.isMixed()) {
+			checkMixedNumber.setDisable(true);
+		} else {
+			checkMixedNumber.setDisable(false);
+		}
+	}
+
+	public void validateMixed() {
+		if (!mixedNumber.isMixed()) {
+			checkImproper.setDisable(true);
+		} else {
+			checkImproper.setDisable(false);
+		}
 	}
 
 	public void validateDenominator() {
@@ -150,15 +185,9 @@ public class FractionTabController implements Initializable {
 		}
 
 		if (checkPercentage.isSelected() && mixedNumber.isMixed()) {
-			areaOutput.appendText("Percentage: " +  Double.toString(mixedNumber.toPercent()) + "%\n");
+			areaOutput.appendText("Percentage: " + Double.toString(mixedNumber.toPercent()) + "%\n");
 		} else if (!mixedNumber.isMixed()) {
 			areaOutput.appendText("Percentage: " + Double.toString(fraction.toPercent()) + "%\n");
 		}
-	}
-
-	public void validateKeyPress() {
-		// TODO Make sure user can only type numbers
-
-		// TODO Make sure user cannot type denominator of zero
 	}
 }
