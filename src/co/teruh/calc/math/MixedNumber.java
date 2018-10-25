@@ -5,7 +5,7 @@ public class MixedNumber extends Fraction {
 	private int integer;
 
 	public MixedNumber() {
-		this(-1, -1, -1);
+		this(0, -1, -1);
 	}
 
 	public MixedNumber(int i, int n, int d) {
@@ -21,11 +21,22 @@ public class MixedNumber extends Fraction {
 		this.integer = integer;
 	}
 
-	public String toString() {
-		if (!(getDenominator() == 0)) {
-			return (getInteger() + " " + getNumerator() + "/" + getDenominator());
+	public boolean isMixed() {
+		if (integer == 0) {
+			return false;
 		} else {
-			throw new IllegalArgumentException("Invalid denominator");
+			return true;
+		}
+	}
+
+	public String toString() {
+		if (!(getDenominator() == 0) && isMixed()) {
+			return (getInteger() + " " + getNumerator() + "/" + getDenominator());
+		} else if (getInteger() == 0) {
+			convertToFraction();
+			return super.toString();
+		} else {
+			throw new ArithmeticException("Invalid denominator");
 		}
 	}
 
@@ -42,5 +53,4 @@ public class MixedNumber extends Fraction {
 		Fraction newFraction = new Fraction(newNumerator, getDenominator());
 		return newFraction;
 	}
-
 }

@@ -6,11 +6,10 @@ import co.teruh.calc.math.Fraction;
 public class Main {
 
 	public static void main(String[] args) {
-		
-		Fraction f = new Fraction(10000, 15);
-		System.out.println(f.toString());
-		
-		//Display display = new Display();
-		//display.launch();
+		Display display = new Display();
+		display.launch();
+
+		// Fraction fraction = new Fraction(50, 100);
+		// System.out.println(fraction.toDecimal());
 	}
 }

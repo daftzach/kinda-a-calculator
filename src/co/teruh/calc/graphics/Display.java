@@ -10,15 +10,17 @@ import javafx.stage.Stage;
 
 public class Display extends Application {
 	
+	
 	@Override
 	public void start(Stage displayStage) throws Exception {
 		Scene scene = new Scene(new StackPane());
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mainView.fxml"));
 		scene.setRoot(fxmlLoader.load());
 		
-		MainController controller = fxmlLoader.getController();
-		//controller.init();
+		//FractionTabController controller = fxmlLoader.getController();
+		//controller.initialize(null, null);
 		
+		displayStage.setTitle("Urwork");
 		displayStage.setScene(scene);
 		displayStage.setResizable(false);
 		displayStage.show();

@@ -11,7 +11,7 @@ public class Fraction {
 
 	public Fraction(int n, int d) {
 		this.numerator = n;
-		if(!(d == 0)) {
+		if (!(d == 0)) {
 			this.denominator = d;
 		} else {
 			throw new IllegalArgumentException("Invalid denominator");
@@ -42,6 +42,14 @@ public class Fraction {
 		return getGCF(b % a, a);
 	}
 
+	public boolean isImproper() {
+		if (getNumerator() > getDenominator()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public void simplify() {
 		int gcf = getGCF(getNumerator(), getDenominator());
 		setNumerator(getNumerator() / gcf);
@@ -57,17 +65,15 @@ public class Fraction {
 	}
 
 	public String toString() {
-		if (!(getDenominator() == 0) && !(getDenominator() == 1)) {
+		if (!(getDenominator() == 0)) {
 			return (getNumerator() + "/" + getDenominator());
-		} else if (getDenominator() == 1) {
-			return Integer.toString(getNumerator());
 		} else {
-			throw new IllegalArgumentException("Invalid denominator");
+			throw new ArithmeticException("Invalid denominator");
 		}
 	}
 
 	public MixedNumber convertToMixedNumber() {
-		if (getNumerator() > getDenominator()) {
+		if (isImproper()) {
 			int newNumerator = getNumerator() % getDenominator();
 			int integer = getNumerator() / getDenominator();
 			MixedNumber newFraction = new MixedNumber(integer, newNumerator, getDenominator());
@@ -76,5 +82,4 @@ public class Fraction {
 			return null;
 		}
 	}
-
 }
