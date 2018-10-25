@@ -37,9 +37,9 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Separator>
-            <TextField fx:id="fieldFractionWholeNum" prefWidth="126.0" promptText="whole num." GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="fieldFractionNumerator" promptText="numerator" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <TextField fx:id="fieldFractionDenominator" promptText="denominator" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <TextField fx:id="fieldWholeNumber" prefWidth="126.0" promptText="whole num." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="fieldNumerator" promptText="numerator" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TextField fx:id="fieldDenominator" promptText="denominator" GridPane.columnIndex="2" GridPane.rowIndex="3" />
          </children>
          <VBox.margin>
             <Insets />
@@ -59,17 +59,17 @@
         </rowConstraints>
          <children>
             <Button fx:id="buttonConvert" mnemonicParsing="false" text="Convert" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <CheckBox fx:id="checkImproper" mnemonicParsing="false" text="to Improper Fraction" GridPane.columnIndex="1" />
-            <CheckBox fx:id="checkMixedNumber" mnemonicParsing="false" text="to Mixed Number" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <CheckBox fx:id="checkDecimal" mnemonicParsing="false" text="to Decimal" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <CheckBox fx:id="checkPercentage" mnemonicParsing="false" text="to Percentage" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <CheckBox fx:id="boxImproperFraction" mnemonicParsing="false" text="to Improper Fraction" GridPane.columnIndex="1" />
+            <CheckBox fx:id="boxMixedNumber" mnemonicParsing="false" text="to Mixed Number" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <CheckBox fx:id="boxDecimal" mnemonicParsing="false" text="to Decimal" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <CheckBox fx:id="boxPercentage" mnemonicParsing="false" text="to Percentage" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </VBox.margin>
       </GridPane>
       <Separator prefWidth="200.0" />
-      <TextArea fx:id="areaOutput" editable="false" prefHeight="200.0" prefWidth="200.0">
+      <TextArea fx:id="textOutput" editable="false" prefHeight="200.0" prefWidth="200.0">
          <VBox.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </VBox.margin>

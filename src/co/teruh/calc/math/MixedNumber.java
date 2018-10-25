@@ -2,7 +2,7 @@ package co.teruh.calc.math;
 
 public class MixedNumber extends Fraction {
 
-	private int integer;
+	private int wholeNumber;
 
 	public MixedNumber() {
 		this(0, -1, -1);
@@ -10,19 +10,19 @@ public class MixedNumber extends Fraction {
 
 	public MixedNumber(int i, int n, int d) {
 		super(n, d);
-		this.integer = i;
+		this.wholeNumber = i;
 	}
 
-	public int getInteger() {
-		return integer;
+	public int getWholeNumber() {
+		return wholeNumber;
 	}
 
-	public void setInteger(int integer) {
-		this.integer = integer;
+	public void setWholeNumber(int integer) {
+		this.wholeNumber = integer;
 	}
 
 	public boolean isMixed() {
-		if (integer == 0) {
+		if (wholeNumber == 0) {
 			return false;
 		} else {
 			return true;
@@ -31,8 +31,8 @@ public class MixedNumber extends Fraction {
 
 	public String toString() {
 		if (!(getDenominator() == 0) && isMixed()) {
-			return (getInteger() + " " + getNumerator() + "/" + getDenominator());
-		} else if (getInteger() == 0) {
+			return (getWholeNumber() + " " + getNumerator() + "/" + getDenominator());
+		} else if (getWholeNumber() == 0) {
 			convertToFraction();
 			return super.toString();
 		} else {
@@ -41,7 +41,7 @@ public class MixedNumber extends Fraction {
 	}
 
 	public float toDecimal() {
-		return (float) getInteger() + ((float) getNumerator() / (float) getDenominator());
+		return (float) getWholeNumber() + ((float) getNumerator() / (float) getDenominator());
 	}
 
 	public double toPercent() {
@@ -49,7 +49,7 @@ public class MixedNumber extends Fraction {
 	}
 
 	public Fraction convertToFraction() {
-		int newNumerator = ((getDenominator() * getInteger()) + getNumerator());
+		int newNumerator = ((getDenominator() * getWholeNumber()) + getNumerator());
 		Fraction newFraction = new Fraction(newNumerator, getDenominator());
 		return newFraction;
 	}
