@@ -29,11 +29,13 @@ public class FractionTabController implements Initializable {
 	@FXML private TextArea  textOutput;
 
 	@FXML private Button buttonConvert;
+	@FXML private Button buttonSimplify;
 
 	@FXML private CheckBox boxImproperFraction;
 	@FXML private CheckBox boxMixedNumber;
 	@FXML private CheckBox boxDecimal;
 	@FXML private CheckBox boxPercentage;
+	@FXML private CheckBox boxGCF;
 
 	public FractionTabController() {
 		wholeNum = 0;
@@ -52,10 +54,10 @@ public class FractionTabController implements Initializable {
 				if (!newValue && !(fieldWholeNumber.getText().isEmpty())) {
 					wholeNum = Integer.parseInt(fieldWholeNumber.getText());
 					setMixedNumberValues();
-					validiate();
+					validate();
 				} else if (fieldWholeNumber.getText().isEmpty()) {
 					mixedNumber.setWholeNumber(0);
-					validiate();
+					validate();
 				}
 			}
 		});
@@ -75,10 +77,10 @@ public class FractionTabController implements Initializable {
 				if (!newValue && !(fieldNumerator.getText().isEmpty())) {
 					numerator = Integer.parseInt(fieldNumerator.getText());
 					setFractionValues();
-					validiate();
+					validate();
 				} else if (fieldWholeNumber.getText().isEmpty()) {
 					fraction.setNumerator(0);
-					validiate();
+					validate();
 				}
 			}
 		});
@@ -98,10 +100,10 @@ public class FractionTabController implements Initializable {
 				if (!newValue && !(fieldDenominator.getText().isEmpty())) {
 					denominator = Integer.parseInt(fieldDenominator.getText());
 					setFractionValues();
-					validiate();
+					validate();
 				} else if (fieldWholeNumber.getText().isEmpty()) {
 					fraction.setDenominator(0);
-					validiate();
+					validate();
 				}
 			}
 		});
@@ -118,24 +120,28 @@ public class FractionTabController implements Initializable {
 		buttonConvert.setOnAction((ActionEvent e) -> {
 			if (!mixedNumber.isMixed()) {
 				setFractionValues();
-				System.out.println(fraction.toString());
 				runConversions();
 			} else {
 				setMixedNumberValues();
-				System.out.println(mixedNumber.toString());
 				runConversions();
 			}
 		});
+
+		buttonSimplify.setOnAction((ActionEvent e) -> {
+			simplify();
+		});
 	}
 
-	public void validiate() {
+	public void validate() {
 		validateImproper();
 		validateMixed();
 		validateDenominator();
 	}
 
 	public void validateImproper() {
-		if (!fraction.isImproper() && mixedNumber.isMixed()) {
+		if (fraction.isImproper() && mixedNumber.isMixed()) {
+			boxMixedNumber.setDisable(true);
+		} else if (!fraction.isImproper()) {
 			boxMixedNumber.setDisable(true);
 		} else {
 			boxMixedNumber.setDisable(false);
@@ -152,7 +158,7 @@ public class FractionTabController implements Initializable {
 
 	public void validateDenominator() {
 		if (denominator == 0) {
-			 textOutput.appendText("ERROR: Denominator cannot be ZERO!\n");
+			textOutput.appendText("ERROR: Denominator cannot be ZERO!\n");
 		}
 	}
 
@@ -168,26 +174,44 @@ public class FractionTabController implements Initializable {
 	}
 
 	public void runConversions() {
-		 textOutput.clear();
+		textOutput.clear();
 
 		if (boxImproperFraction.isSelected() && !(boxImproperFraction.isDisabled())) {
-			 textOutput.appendText("Improper Fraction: " + mixedNumber.convertToFraction() + "\n");
+			textOutput.appendText("Improper Fraction: " + mixedNumber.convertToFraction() + "\n");
 		}
 
 		if (boxMixedNumber.isSelected() && !(boxMixedNumber.isDisabled())) {
-			 textOutput.appendText("Mixed Number: " + fraction.convertToMixedNumber() + "\n");
+			textOutput.appendText("Mixed Number: " + fraction.convertToMixedNumber() + "\n");
 		}
 
 		if (boxDecimal.isSelected() && mixedNumber.isMixed()) {
-			 textOutput.appendText("Decimal: " + Float.toString(mixedNumber.toDecimal()) + "\n");
+			textOutput.appendText("Decimal: " + Float.toString(mixedNumber.toDecimal()) + "\n");
 		} else if (!mixedNumber.isMixed()) {
-			 textOutput.appendText("Decimal: " + Float.toString(fraction.toDecimal()) + "\n");
+			textOutput.appendText("Decimal: " + Float.toString(fraction.toDecimal()) + "\n");
 		}
 
 		if (boxPercentage.isSelected() && mixedNumber.isMixed()) {
-			 textOutput.appendText("Percentage: " + Double.toString(mixedNumber.toPercent()) + "%\n");
+			textOutput.appendText("Percentage: " + Double.toString(mixedNumber.toPercent()) + "%\n");
 		} else if (!mixedNumber.isMixed()) {
-			 textOutput.appendText("Percentage: " + Double.toString(fraction.toPercent()) + "%\n");
+			textOutput.appendText("Percentage: " + Double.toString(fraction.toPercent()) + "%\n");
+		}
+	}
+
+	public void simplify() {
+		fraction.simplify();
+
+		if (textOutput.getText().contains("Simplified: ") && !boxGCF.isSelected()) {
+			textOutput.clear();
+			textOutput.appendText("Simplified: " + fraction.toString() + "\n");
+		} else if (!boxGCF.isSelected()) {
+			textOutput.appendText("Simplified: " + fraction.toString() + "\n");
+		} else if (!textOutput.getText().contains("Simplified: ") && boxGCF.isSelected()) {
+			textOutput.appendText("Simplified: " + fraction.toString() + "\n");
+			textOutput.appendText("GCF: " + fraction.getGCF(numerator, denominator) + "\n");
+		} else {
+			textOutput.clear();
+			textOutput.appendText("Simplified: " + fraction.toString() + "\n");
+			textOutput.appendText("GCF: " + fraction.getGCF(numerator, denominator) + "\n");
 		}
 	}
 }

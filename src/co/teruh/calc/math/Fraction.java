@@ -74,10 +74,13 @@ public class Fraction {
 
 	public MixedNumber convertToMixedNumber() {
 		if (isImproper()) {
-			int newNumerator = getNumerator() % getDenominator();
-			int integer = getNumerator() / getDenominator();
-			MixedNumber newFraction = new MixedNumber(integer, newNumerator, getDenominator());
-			return newFraction;
+			int gcf = getGCF(getNumerator(), getDenominator());
+			int newNumerator = getNumerator() / gcf;
+			int newDenominator = getDenominator() / gcf;
+			int division = newNumerator / newDenominator;
+			int remainder = newNumerator % newDenominator;
+			MixedNumber mixedNumber = new MixedNumber(division, remainder, newDenominator);
+			return mixedNumber;
 		} else {
 			return null;
 		}
